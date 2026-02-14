@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💖</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Arial, Helvetica, sans-serif;
+  overflow:hidden;
+  position:relative;
+}
+
+/* 🌸 พื้นหลังดอกพีโอนี */
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."); /* ← base64 เต็มถูกใส่แล้ว */
+  background-size:cover;
+  background-position:center;
+  filter:blur(18px) brightness(0.85);
+  transform:scale(1.1);
+  z-index:-2;
+}
+
+/* ✨ เลเยอร์แสงละมุน */
+body::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top, rgba(255,182,193,0.4), rgba(0,0,0,0.7));
+  z-index:-1;
+}
+
+/* 💌 Envelope Wrapper */
+.wrapper{
+  position:relative;
+  width:300px;
+  height:200px;
+  cursor:pointer;
+}
+
+/* ✉️ ตัวซอง */
+.envelope{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#E66A80;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+}
+
+/* 📄 กระดาษ */
+.letter{
+  position:absolute;
+  width:80%;
+  height:80%;
+  background:#FFF5F7;
+  border-radius:12px;
+  left:50%;
+  transform:translateX(-50%);
+  top:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:0.6s ease;
+  z-index:1;
+}
+
+.letter p{
+  color:#D43F5E;
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+}
+
+/* 🔺 ฝาซอง */
+.lid{
+  position:absolute;
+  width:0;
+  height:0;
+  border-left:150px solid transparent;
+  border-right:150px solid transparent;
+  border-top:100px solid #F28DA8;
+  top:0;
+  transform-origin:top;
+  transition:0.6s ease;
+  z-index:3;
+}
+
+/* 🔻 ด้านล่างซอง */
+.bottom{
+  position:absolute;
+  width:0;
+  height:0;
+  border-left:150px solid #FFC0CB;
+  border-right:150px solid #FFD3DA;
+  border-bottom:100px solid #FFD3DA;
+  bottom:0;
+  z-index:2;
+}
+
+/* 💖 เปิดซอง */
+.open .lid{
+  transform:rotateX(180deg);
+}
+
+.open .letter{
+  top:10%;
+}
+
+/* 🎀 ปุ่ม */
+.buttons{
+  margin-top:230px;
+  text-align:center;
+}
+
+button{
+  background:#D43F5E;
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
+  margin:5px;
+}
+
+button:hover{
+  background:#B52E4C;
+}
+
+/* 💕 หัวใจลอย */
+.heart{
+  position:absolute;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(0);opacity:1}
+  100%{transform:translateY(-110vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper" id="wrapper">
+  <div class="envelope">
+    <div class="letter">
+      <p>Happy Valentine's Day ❤️</p>
+    </div>
+  </div>
+  <div class="lid"></div>
+  <div class="bottom"></div>
+</div>
+
+<div class="buttons">
+  <button id="openBtn">Open</button>
+  <button id="closeBtn" style="display:none;">Close</button>
+</div>
+
+<script>
+const wrapper=document.getElementById("wrapper");
+const openBtn=document.getElementById("openBtn");
+const closeBtn=document.getElementById("closeBtn");
+
+openBtn.addEventListener("click",()=>{
+  wrapper.classList.add("open");
+  openBtn.style.display="none";
+  closeBtn.style.display="inline-block";
+});
+
+closeBtn.addEventListener("click",()=>{
+  wrapper.classList.remove("open");
+  closeBtn.style.display="none";
+  openBtn.style.display="inline-block";
+});
+
+/* 💖 สร้างหัวใจลอย */
+function createHeart(){
+  const heart=document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=3+Math.random()*3+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart,500);
+</script>
+
+</body>
+</html>
